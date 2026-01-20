@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,13 +15,12 @@
 
     <style>
         :root {
-            /* The Core Palette - Perfectly Synced */
-            --bg-dark: #030512;       /* Almost Black Blue */
-            --bg-panel: rgba(255, 255, 255, 0.03);
-            --primary-cyan: #00f2ff;  /* The Glowing Blue */
-            --primary-purple: #bc13fe; /* The Neon Purple */
-            --text-main: #e0e6ed;
-            --text-muted: #94a3b8;
+            --bg-color: #050505;
+            --card-bg: rgba(20, 20, 30, 0.7);
+            --primary: #00f2ff; /* Cyan */
+            --secondary: #bd00ff; /* Purple */
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
         }
 
         * {
@@ -31,62 +30,33 @@
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif; /* Tech Font */
-            background-color: var(--bg-dark);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- THE MOTHERBOARD BACKGROUND (PURE CSS) --- */
-        .cyber-grid {
+        /* --- 1. CLEAN ANIMATED BACKGROUND --- */
+        #particles-js {
             position: fixed;
+            width: 100%;
+            height: 100%;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-            background: 
-                linear-gradient(rgba(3, 5, 18, 0.9), rgba(3, 5, 18, 0.9)),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            perspective: 500px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        /* A glowing orb in the center to give depth */
-        .cyber-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60vw;
-            height: 60vh;
-            background: radial-gradient(circle, rgba(188, 19, 254, 0.15) 0%, rgba(3, 5, 18, 0) 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        @keyframes gridMove {
-            0% { background-position: 0 0, 0 0, 0 0; }
-            100% { background-position: 0 0, 40px 40px, 40px 40px; }
+            z-index: -1; /* Keeps it behind everything */
+            background: linear-gradient(to bottom, #020205, #0a0a15);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- HEADER SECTION --- */
+        /* --- 2. HERO SECTION --- */
         header {
             height: 90vh;
             display: flex;
@@ -94,74 +64,92 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
         }
 
         .hero-title {
-            font-size: 4.5rem;
-            line-height: 1;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, var(--primary-cyan));
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #fff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .hero-subtitle {
-            font-size: 1.8rem;
-            color: var(--primary-purple);
+            font-size: 1.5rem;
+            color: var(--secondary);
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .hero-description {
-            font-size: 1.2rem;
             max-width: 600px;
+            font-size: 1.1rem;
             color: var(--text-muted);
             margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        .hero-links a {
-            font-size: 1.8rem;
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
             color: var(--text-main);
-            margin: 0 15px;
+            font-size: 1.8rem;
             transition: 0.3s;
         }
-        .hero-links a:hover {
-            color: var(--primary-cyan);
-            text-shadow: 0 0 15px var(--primary-cyan);
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+            text-shadow: 0 0 15px var(--primary);
         }
 
-        /* --- SECTION STYLING --- */
-        section { padding: 80px 0; }
+        /* --- 3. SECTIONS & TITLES --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
         .section-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
-            margin-bottom: 50px;
-            display: inline-block;
-            border-bottom: 3px solid var(--primary-cyan);
-            padding-bottom: 5px;
+            color: #fff;
         }
 
-        .subsection-title {
-            color: var(--primary-cyan);
-            font-size: 1.4rem;
-            margin: 30px 0 20px;
+        .line {
+            height: 2px;
+            background: var(--primary);
+            flex-grow: 1;
+            max-width: 200px;
+            box-shadow: 0 0 10px var(--primary);
         }
 
-        /* --- THE GLASS CARDS (SYNCED THEME) --- */
-        .grid-container {
+        /* --- 4. GLASS CARDS (High Readability) --- */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .glass-card {
-            background: rgba(10, 16, 31, 0.6); /* Darker, slightly transparent */
-            backdrop-filter: blur(12px);         /* The blur effect */
-            border: 1px solid rgba(0, 242, 255, 0.15); /* Thin cyan border */
-            border-radius: 12px;
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             padding: 30px;
+            backdrop-filter: blur(10px); /* Frosted glass */
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -169,335 +157,346 @@
             display: block;
         }
 
-        /* The Hover Glow Effect */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
-            transform: scaleX(0);
-            transition: 0.4s;
-        }
-
-        .glass-card:hover {
+        /* Hover Glow */
+        .card:hover {
             transform: translateY(-10px);
-            border-color: var(--primary-cyan);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
         }
 
-        .glass-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* Card Content */
-        .card-title {
+        .card h3 {
             color: #fff;
             font-size: 1.4rem;
             margin-bottom: 10px;
         }
-        
-        .card-company {
-            color: var(--primary-cyan);
-            font-weight: 600;
-            font-size: 1.1rem;
+
+        .card h3 i {
+            color: gold;
+            margin-left: 5px;
         }
 
-        .card-date {
-            color: var(--text-muted);
+        .card-meta {
+            color: var(--primary);
             font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 15px;
-            font-family: 'Space Grotesk', sans-serif;
+            display: block;
         }
 
-        .card-desc {
-            color: #ccc;
-            font-size: 1rem;
-            line-height: 1.5;
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .tech-stack {
-            margin-top: 20px;
+        .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .tech-badge {
+        .tag {
             font-size: 0.8rem;
-            background: rgba(188, 19, 254, 0.1);
-            color: var(--primary-purple);
             padding: 5px 12px;
             border-radius: 20px;
-            border: 1px solid rgba(188, 19, 254, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 255, 0.2);
         }
 
-        /* --- CERTIFICATES ROW --- */
-        .cert-row {
+        /* --- 5. CREDENTIALS LIST --- */
+        .creds-list {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
-        .cert-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid var(--primary-purple);
-            padding: 15px 20px;
-            border-radius: 0 8px 8px 0;
+
+        .cred-item {
             display: flex;
             align-items: center;
             gap: 15px;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary);
             transition: 0.3s;
         }
-        
-        .cert-item:hover {
-            background: rgba(188, 19, 254, 0.1);
-            padding-left: 30px;
-        }
-        
-        .cert-icon { color: var(--primary-cyan); font-size: 1.2rem; }
 
-        /* --- BUTTONS --- */
-        .btn-glow {
+        .cred-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(10px);
+        }
+
+        .cred-icon {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            width: 30px;
+            text-align: center;
+        }
+
+        /* --- 6. BUTTONS --- */
+        .btn {
             display: inline-block;
-            background: transparent;
-            color: var(--primary-cyan);
-            border: 2px solid var(--primary-cyan);
-            padding: 15px 40px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
             text-decoration: none;
             transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            margin-top: 20px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 10px;
         }
 
-        .btn-glow::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--primary-cyan);
-            z-index: -1;
-            transition: 0.3s;
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+            border: none;
         }
 
-        .btn-glow:hover {
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(0, 242, 255, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
             color: #000;
-            box-shadow: 0 0 20px var(--primary-cyan);
         }
 
-        .btn-glow:hover::before { width: 100%; }
-
-        /* --- CONTACT --- */
-        .contact-box {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0));
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Mobile Adjustments */
+        /* Mobile Fixes */
         @media (max-width: 768px) {
-            .hero-title { font-size: 3rem; }
-            .cyber-grid { background-size: 100% 100%, 20px 20px, 20px 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cyber-grid"></div>
-    <div class="cyber-glow"></div>
+    <div id="particles-js"></div>
 
     <div class="container">
         
-        <header id="home" data-aos="zoom-out" data-aos-duration="1500">
+        <header data-aos="zoom-in" data-aos-duration="1200">
             <h1 class="hero-title">Nithish Kumar M</h1>
             <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
-            <p class="hero-description">I build intelligent systems and extract actionable insights from the noise. Winner of the Genesis AI Hackathon.</p>
-            
-            <div class="hero-links">
+            <p class="hero-description">
+                Building intelligent systems and extracting insights from the noise. <br>
+                Winner of the Genesis AI Hackathon.
+            </p>
+            <div class="social-links">
                 <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
                 <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
             </div>
-
+            
             <div style="margin-top: 60px; animation: bounce 2s infinite;">
-                <i class="fas fa-chevron-down" style="color: var(--primary-purple); font-size: 1.5rem;"></i>
+                <i class="fas fa-chevron-down" style="color: var(--primary);"></i>
             </div>
         </header>
 
         <section id="experience" data-aos="fade-up">
-            <h2 class="section-title">Experience</h2>
-            <div class="grid-container">
-                <div class="glass-card" data-tilt>
-                    <h3 class="card-company">Novitech R&D</h3>
-                    <div class="card-title">AI/ML Intern</div>
-                    <p class="card-date">May 2025 – Present</p>
-                    <p class="card-desc">Developed and evaluated ML models for prediction tasks using scikit-learn. Implemented AI solutions using supervised learning.</p>
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <div class="line"></div>
+            </div>
+            <div class="grid">
+                <div class="card" data-tilt>
+                    <span class="card-meta">May 2025 – Present</span>
+                    <h3>Novitech R&D</h3>
+                    <p style="color: #fff; font-weight: bold;">AI/ML Intern</p>
+                    <p>Developing predictive models using scikit-learn and deploying AI solutions for real-world scenarios.</p>
                 </div>
-                <div class="glass-card" data-tilt>
-                    <h3 class="card-company">Brainwave Matrix</h3>
-                    <div class="card-title">Data Analytics Intern</div>
-                    <p class="card-date">June 2025 – July 2025</p>
-                    <p class="card-desc">Analyzed datasets using Power BI to generate business dashboards. Improved data visualization accuracy by 25%.</p>
+                <div class="card" data-tilt>
+                    <span class="card-meta">June 2025 – July 2025</span>
+                    <h3>Brainwave Matrix</h3>
+                    <p style="color: #fff; font-weight: bold;">Data Analytics Intern</p>
+                    <p>Built Power BI dashboards to visualize KPIs, improving data reporting accuracy by 25%.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects" data-aos="fade-up">
-            <h2 class="section-title">Projects</h2>
-            <div class="grid-container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="grid">
                 
-                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">Genesis AI Hackathon <i class="fas fa-trophy" style="color: gold;"></i></div>
-                    <p class="card-desc">Winner (1st Place). Led prototype development of an AI-powered solution in 24 hours.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">GenAI</span>
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">Scikit-learn</span>
+                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card" data-tilt>
+                    <h3>Genesis AI Hackathon <i class="fas fa-trophy"></i></h3>
+                    <p>1st Place Winner. Built a rapid GenAI prototype in 24 hours to solve complex automation tasks.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">GenAI</span>
+                        <span class="tag">Scikit-learn</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">AI Quiz Platform</div>
-                    <p class="card-desc">A full-stack app using the Gemini API to auto-generate questions from text inputs.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Java</span>
-                        <span class="tech-badge">Gemini API</span>
-                        <span class="tech-badge">MySQL</span>
+                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card" data-tilt>
+                    <h3>Online Quiz Platform</h3>
+                    <p>Integrated Google Gemini API to auto-generate quiz questions from raw text input.</p>
+                    <div class="tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Gemini API</span>
+                        <span class="tag">MySQL</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">Annamalaiyar Ghee</div>
-                    <p class="card-desc">A deployed e-commerce website for a local business with cart and order management.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">PHP</span>
-                        <span class="tech-badge">MySQL</span>
-                        <span class="tech-badge">Ecommerce</span>
+                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card" data-tilt>
+                    <h3>Annamalaiyar Ghee</h3>
+                    <p>Full e-commerce site for a local business handling orders, cart, and product listings.</p>
+                    <div class="tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Web Dev</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">Sales Dashboard</div>
-                    <p class="card-desc">Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Power BI</span>
-                        <span class="tech-badge">DAX</span>
-                        <span class="tech-badge">Data Viz</span>
-                    </div>
-                </a>
-                
-                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">Uzhavar Koodam</div>
-                    <p class="card-desc">An agricultural market platform that improved farmer's search efficiency by 30%.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">PHP</span>
-                        <span class="tech-badge">MySQL</span>
-                         <span class="tech-badge">JS</span>
+                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card" data-tilt>
+                    <h3>Sales Dashboard</h3>
+                    <p>Power BI dashboard analyzing sales trends, cutting manual reporting time by 40%.</p>
+                    <div class="tags">
+                        <span class="tag">Power BI</span>
+                        <span class="tag">Data Viz</span>
                     </div>
                 </a>
 
-                 <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="glass-card" data-tilt>
-                    <div class="card-title">PARC-AI</div>
-                    <p class="card-desc">AI-driven web app that calculates parcel shipping costs based on dimensions.</p>
-                    <div class="tech-stack">
-                        <span class="tech-badge">AI Model</span>
-                        <span class="tech-badge">JS</span>
+                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card" data-tilt>
+                    <h3>Uzhavar Koodam</h3>
+                    <p>Agricultural market platform connecting farmers to buyers, improving search efficiency.</p>
+                    <div class="tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">JS</span>
+                        <span class="tag">MySQL</span>
                     </div>
                 </a>
 
+                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card" data-tilt>
+                    <h3>PARC-AI</h3>
+                    <p>Smart shipping calculator that estimates costs based on box dimensions and weight.</p>
+                    <div class="tags">
+                        <span class="tag">AI Logic</span>
+                        <span class="tag">JS</span>
+                    </div>
+                </a>
             </div>
         </section>
 
         <section id="certs" data-aos="fade-up">
-            <h2 class="section-title">Credentials</h2>
-            
-            <div class="grid-container">
+            <div class="section-header">
+                <h2 class="section-title">Credentials</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="grid">
                 <div>
-                    <h3 class="subsection-title">Job Simulations</h3>
-                    <div class="cert-row">
-                        <div class="cert-item">
-                            <i class="fas fa-laptop-code cert-icon"></i>
-                            <div><strong>JPMorgan Chase</strong> <br><small style="color:#888">Software Engineering (Jan 2026)</small></div>
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Job Simulations</h3>
+                    <div class="creds-list">
+                        <div class="cred-item">
+                            <i class="fas fa-laptop-code cred-icon"></i>
+                            <div><strong>JPMorgan Chase</strong> <br> Software Engineering </div>
                         </div>
-                        <div class="cert-item">
-                            <i class="fas fa-gamepad cert-icon"></i>
-                            <div><strong>Electronic Arts (EA)</strong> <br><small style="color:#888">Software Engineering (Jan 2026)</small></div>
+                        <div class="cred-item">
+                            <i class="fas fa-gamepad cred-icon"></i>
+                            <div><strong>Electronic Arts (EA)</strong> <br> Software Engineering </div>
                         </div>
-                         <div class="cert-item">
-                            <i class="fas fa-plane cert-icon"></i>
-                            <div><strong>British Airways</strong> <br><small style="color:#888">Data Science (Jan 2026)</small></div>
+                        <div class="cred-item">
+                            <i class="fas fa-plane cred-icon"></i>
+                            <div><strong>British Airways</strong> <br> Data Science </div>
                         </div>
-                        <div class="cert-item">
-                            <i class="fas fa-chart-pie cert-icon"></i>
-                            <div><strong>Deloitte</strong> <br><small style="color:#888">Data Analytics (Dec 2025)</small></div>
+                        <div class="cred-item">
+                            <i class="fas fa-chart-pie cred-icon"></i>
+                            <div><strong>Deloitte</strong> <br> Data Analytics </div>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="subsection-title">Certifications</h3>
-                    <div class="cert-row">
-                        <div class="cert-item">
-                            <i class="fas fa-certificate cert-icon"></i>
+                    <h3 style="color: var(--secondary); margin-bottom: 20px;">Certifications</h3>
+                    <div class="creds-list">
+                        <div class="cred-item">
+                            <i class="fas fa-certificate cred-icon"></i>
                             <div>Master Power BI (Alison)</div>
                         </div>
-                        <div class="cert-item">
-                            <i class="fas fa-certificate cert-icon"></i>
+                        <div class="cred-item">
+                            <i class="fas fa-certificate cred-icon"></i>
                             <div>Business Analytics (Simplilearn)</div>
                         </div>
-                        <div class="cert-item">
-                            <i class="fas fa-certificate cert-icon"></i>
+                        <div class="cred-item">
+                            <i class="fas fa-certificate cred-icon"></i>
                             <div>Frontend Dev (Simplilearn)</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 30px;">
-                        <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn-glow" style="width: 100%; text-align: center; font-size: 0.9rem;">
-                            View Proofs <i class="fas fa-external-link-alt"></i>
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn btn-outline" style="width: 100%;">
+                            <i class="fas fa-folder-open"></i> View All Proofs
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" data-aos="flip-up">
-            <div class="contact-box">
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Hire?</h2>
-                <p style="color: #94a3b8; margin-bottom: 30px;">I am currently open for Internships & Full-time roles in AI and Data Analytics.</p>
-                
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                    <a href="mailto:knithish367@gmail.com" class="btn-glow">Email Me</a>
-                    
-                    <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn-glow" style="border-color: var(--primary-purple); color: var(--primary-purple);" download="NITHISHKUMAR-RESUME.pdf">
-                        <i class="fas fa-download"></i> Resume
-                    </a>
+        <section id="contact" style="text-align: center;" data-aos="zoom-in">
+            <div style="background: rgba(255,255,255,0.05); padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Ready to work together?</h2>
+                <p style="color: #ccc; margin-bottom: 30px;">Open for Internships & Full-time roles.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="mailto:knithish367@gmail.com" class="btn btn-primary">Email Me</a>
+                    <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn btn-outline" download="NITHISHKUMAR-RESUME.pdf">Download Resume</a>
                 </div>
             </div>
         </section>
 
         <footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem;">
-            <p>&copy; 2026 Nithish Kumar M. System Online.</p>
+            <p>&copy; 2026 Nithish Kumar M. Designed with Code.</p>
         </footer>
 
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
+        AOS.init();
         
-        // Tilt Effect for 3D Cards
-        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+        // Setup Particles.js for a clean starry background
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00f2ff", /* Cyan Lines */
+                    "opacity": 0.2,     /* Low opacity so it doesn't block text */
+                    "width": 1
+                },
+                "move": { "enable": true, "speed": 2 }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" }
+                }
+            }
+        });
+
+        // 3D Tilt Effect
+        VanillaTilt.init(document.querySelectorAll(".card"), {
             max: 10,
             speed: 400,
             glare: true,
