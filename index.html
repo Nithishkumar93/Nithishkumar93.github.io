@@ -19,7 +19,7 @@
             --primary-cyan: #00f2ff;
             --primary-purple: #bd00ff;
             --text-color: #e0e6ed;
-            --glass-bg: rgba(11, 13, 23, 0.85);
+            --glass-bg: rgba(15, 23, 42, 0.6); /* Transparent for 3D effect */
             --glass-border: rgba(0, 242, 255, 0.2);
         }
 
@@ -30,19 +30,23 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* 3D Background Canvas */
+        /* THE 3D BACKGROUND CONTAINER */
         #vanta-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
             z-index: -1;
+            pointer-events: none; /* Let clicks pass through */
         }
 
         .container {
-            max-width: 1000px; /* Slightly narrower for better reading */
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         /* --- HEADER --- */
@@ -57,20 +61,21 @@
 
         .hero-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
             text-transform: uppercase;
             background: linear-gradient(to right, var(--primary-cyan), var(--primary-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            color: #ccc;
+            font-size: 1.8rem;
+            color: #fff;
             margin-bottom: 20px;
-            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         .hero-description {
@@ -78,6 +83,9 @@
             font-size: 1.1rem;
             color: #a0aab5;
             margin-bottom: 30px;
+            background: rgba(0,0,0,0.4); /* Backdrop for readability */
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .social-links a {
@@ -86,10 +94,10 @@
             margin: 0 15px;
             transition: 0.3s;
         }
-        .social-links a:hover { color: var(--primary-cyan); transform: scale(1.1); }
+        .social-links a:hover { color: var(--primary-cyan); transform: scale(1.1); text-shadow: 0 0 15px var(--primary-cyan); }
 
         /* --- SECTIONS --- */
-        section { padding: 60px 0; }
+        section { padding: 80px 0; }
 
         .section-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -102,43 +110,42 @@
             display: inline-block;
         }
 
-        /* --- CARDS --- */
+        /* --- 3D CARDS --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
         .card {
             background: var(--glass-bg);
+            backdrop-filter: blur(10px); /* This makes the 3D background blurry behind cards */
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 25px;
-            transition: 0.3s;
             text-decoration: none;
             display: block;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-cyan);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
-        }
-
+        /* Text pop effect */
         .card h4 {
             font-family: 'Space Grotesk', sans-serif;
             color: var(--primary-cyan);
             font-size: 1.3rem;
             margin-bottom: 10px;
+            transform: translateZ(20px);
         }
-
         .card p {
             color: #ccc;
             font-size: 0.95rem;
-            line-height: 1.6;
             margin-bottom: 15px;
+            transform: translateZ(20px);
         }
-
+        .tags { transform: translateZ(30px); }
+        
         .tags span {
             display: inline-block;
             font-size: 0.75rem;
@@ -150,51 +157,46 @@
             color: var(--primary-cyan);
         }
 
-        /* --- CREDENTIALS (VERTICAL STACK) --- */
+        /* --- CREDENTIALS (Stacked Layout) --- */
         .creds-block {
-            margin-bottom: 40px; /* Space between Job Sims and Certs */
+            margin-bottom: 50px; /* Force separation between Sims and Certs */
         }
 
         .subsection-title {
             color: var(--primary-cyan);
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--primary-purple);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--primary-purple);
             display: inline-block;
             padding-bottom: 5px;
-        }
-
-        /* Grid for the list items inside the sections */
-        .creds-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px;
         }
 
         .list-item {
             display: flex;
             align-items: center;
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--primary-purple);
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
             transition: 0.3s;
         }
-
-        .list-item:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
-
-        .list-item i {
-            font-size: 1.2rem;
-            color: var(--primary-cyan);
-            margin-right: 15px;
-            min-width: 25px;
-            text-align: center;
+        
+        /* Hover effect for list items */
+        .list-item:hover {
+            border-color: var(--primary-cyan);
+            background: rgba(0, 242, 255, 0.05);
+            transform: translateX(10px);
         }
 
-        .list-text strong { display: block; color: #fff; font-size: 1rem; }
-        .list-text span { font-size: 0.85rem; color: #888; }
+        .list-item i {
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+            margin-right: 20px;
+        }
+
+        .list-text strong { display: block; color: #fff; font-size: 1.1rem; }
+        .list-text span { font-size: 0.9rem; color: #888; }
 
         /* BUTTONS */
         .btn {
@@ -208,6 +210,7 @@
             text-decoration: none;
             transition: 0.3s;
             margin-top: 20px;
+            cursor: pointer;
         }
         .btn:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 0 20px var(--primary-cyan); }
 
@@ -215,8 +218,7 @@
         #contact { text-align: center; margin-bottom: 50px; }
         
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
         }
     </style>
 </head>
@@ -225,7 +227,6 @@
     <div id="vanta-bg"></div>
 
     <div class="container">
-        
         <header data-aos="zoom-in">
             <h1 class="hero-title">Nithish Kumar M</h1>
             <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
@@ -240,12 +241,12 @@
         <section id="experience" data-aos="fade-up">
             <h2 class="section-title">Experience</h2>
             <div class="grid">
-                <div class="card">
+                <div class="card" data-tilt>
                     <h4>AI/ML Intern</h4>
                     <p><strong>Novitech R&D</strong> | May 2025 – Present</p>
                     <p>Building predictive models using Scikit-learn and deploying Python solutions for real-world scenarios.</p>
                 </div>
-                <div class="card">
+                <div class="card" data-tilt>
                     <h4>Data Analytics Intern</h4>
                     <p><strong>Brainwave Matrix</strong> | June 2025 – July 2025</p>
                     <p>Designed Power BI dashboards that improved reporting efficiency by 25% through advanced data visualization.</p>
@@ -257,7 +258,7 @@
             <h2 class="section-title">Featured Projects</h2>
             <div class="grid">
                 
-                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card">
+                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card" data-tilt>
                     <h4>Genesis AI Hackathon (1st Place) <i class="fas fa-trophy" style="color: gold;"></i></h4>
                     <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams.</p>
                     <div class="tags">
@@ -265,7 +266,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card">
+                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card" data-tilt>
                     <h4>Online Quiz Platform</h4>
                     <p>A full-stack app using the Gemini API to auto-generate questions, reducing creation time by 25%.</p>
                     <div class="tags">
@@ -273,7 +274,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card">
+                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card" data-tilt>
                     <h4>Annamalaiyar Ghee E-commerce</h4>
                     <p>A full-featured e-commerce website for a local business selling ghee, snacks, and other products.</p>
                     <div class="tags">
@@ -281,15 +282,15 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card">
+                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card" data-tilt>
                     <h4>Sales Performance Dashboard</h4>
                     <p>Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
                     <div class="tags">
                         <span>Power BI</span><span>Excel</span><span>Python</span>
                     </div>
                 </a>
-
-                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card">
+                
+                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card" data-tilt>
                     <h4>Uzhavar Koodam</h4>
                     <p>An agricultural market platform that improved farmer's search efficiency by 30%.</p>
                     <div class="tags">
@@ -297,7 +298,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card">
+                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card" data-tilt>
                     <h4>PARC-AI</h4>
                     <p>AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
                     <div class="tags">
@@ -313,29 +314,29 @@
             
             <div class="creds-block">
                 <h3 class="subsection-title">Job Simulations</h3>
-                <div class="creds-grid">
-                    <div class="list-item">
+                <div class="grid">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-laptop-code"></i>
                         <div class="list-text">
                             <strong>JPMorgan Chase & Co.</strong>
                             <span>Software Engineering (Jan 2026)</span>
                         </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-gamepad"></i>
                         <div class="list-text">
                             <strong>Electronic Arts (EA)</strong>
                             <span>Software Engineering (Jan 2026)</span>
                         </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-plane"></i>
                         <div class="list-text">
                             <strong>British Airways</strong>
                             <span>Data Science (Jan 2026)</span>
                         </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-chart-pie"></i>
                         <div class="list-text">
                             <strong>Deloitte</strong>
@@ -347,22 +348,22 @@
 
             <div class="creds-block">
                 <h3 class="subsection-title">Certifications</h3>
-                <div class="creds-grid">
-                    <div class="list-item">
+                <div class="grid">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-certificate"></i>
                         <div class="list-text"><strong>Master Power BI</strong> <span>(Alison Academy)</span></div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-certificate"></i>
                         <div class="list-text"><strong>Business Analytics</strong> <span>(Simplilearn)</span></div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-certificate"></i>
                         <div class="list-text"><strong>Frontend Development</strong> <span>(Simplilearn)</span></div>
                     </div>
-                     <div class="list-item">
+                    <div class="list-item" data-tilt data-tilt-scale="1.02">
                         <i class="fas fa-certificate"></i>
-                        <div class="list-text"><strong>Database Management System</strong> <span>(CodeChef)</span></div>
+                        <div class="list-text"><strong>DBMS</strong> <span>(CodeChef)</span></div>
                     </div>
                 </div>
             </div>
@@ -384,28 +385,47 @@
         </section>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        AOS.init();
+        // Init Scroll Animation
+        AOS.init({ duration: 1000, once: true });
 
-        VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x00f2ff,        
-            backgroundColor: 0x0b0d17,
-            points: 12.00,
-            maxDistance: 23.00,
-            spacing: 18.00
-        })
+        // Init 3D Background
+        // Note: If you don't see the background, check browser console for errors
+        try {
+            VANTA.NET({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x00f2ff,       /* CYAN */
+                backgroundColor: 0x0b0d17, /* DARK BLUE */
+                points: 12.00,
+                maxDistance: 22.00,
+                spacing: 18.00
+            });
+        } catch (e) {
+            console.log("Vanta JS Error:", e);
+        }
+
+        // Init Tilt Effect
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3
+        });
     </script>
 </body>
 </html>
