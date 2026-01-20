@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,13 +15,13 @@
 
     <style>
         :root {
-            --bg-color: #0b0d17;
-            --text-color: #e0e6ed;
-            --accent-color: #00f2ff; /* Cyberpunk Cyan */
-            --secondary-color: #7000ff; /* Neon Purple */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-hover: rgba(255, 255, 255, 0.1);
+            /* The Core Palette - Perfectly Synced */
+            --bg-dark: #030512;       /* Almost Black Blue */
+            --bg-panel: rgba(255, 255, 255, 0.03);
+            --primary-cyan: #00f2ff;  /* The Glowing Blue */
+            --primary-purple: #bc13fe; /* The Neon Purple */
+            --text-main: #e0e6ed;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -31,475 +31,478 @@
         }
 
         body {
-            font-family: 'Lexend', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            font-family: 'Rajdhani', sans-serif; /* Tech Font */
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* The 3D Background Container */
-        #vanta-bg {
+        /* --- THE MOTHERBOARD BACKGROUND (PURE CSS) --- */
+        .cyber-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
             z-index: -1;
+            background: 
+                linear-gradient(rgba(3, 5, 18, 0.9), rgba(3, 5, 18, 0.9)),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            perspective: 500px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        /* A glowing orb in the center to give depth */
+        .cyber-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(188, 19, 254, 0.15) 0%, rgba(3, 5, 18, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 0 0, 40px 40px, 40px 40px; }
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+            padding: 0 20px;
         }
 
-        /* HEADER */
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- HEADER SECTION --- */
         header {
             height: 90vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             text-align: center;
+            position: relative;
         }
 
         .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
-            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, var(--primary-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
         }
 
         .hero-subtitle {
             font-size: 1.8rem;
-            color: #a0aab5;
+            color: var(--primary-purple);
             margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
         }
 
         .hero-description {
+            font-size: 1.2rem;
             max-width: 600px;
-            margin: 0 auto 30px;
-            font-size: 1.1rem;
-            color: #ccc;
+            color: var(--text-muted);
+            margin-bottom: 30px;
         }
 
         .hero-links a {
-            color: var(--text-color);
-            font-size: 2rem;
+            font-size: 1.8rem;
+            color: var(--text-main);
             margin: 0 15px;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
-
         .hero-links a:hover {
-            color: var(--accent-color);
-            transform: translateY(-5px) scale(1.1);
-            text-shadow: 0 0 15px var(--accent-color);
+            color: var(--primary-cyan);
+            text-shadow: 0 0 15px var(--primary-cyan);
         }
 
-        /* SECTIONS */
-        section {
-            padding: 80px 0;
-        }
+        /* --- SECTION STYLING --- */
+        section { padding: 80px 0; }
 
         .section-title {
-            font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
-            margin-bottom: 40px;
-            border-left: 5px solid var(--accent-color);
-            padding-left: 20px;
-            color: #fff;
-            text-transform: uppercase;
+            margin-bottom: 50px;
+            display: inline-block;
+            border-bottom: 3px solid var(--primary-cyan);
+            padding-bottom: 5px;
         }
 
         .subsection-title {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 10px;
-            display: inline-block;
+            color: var(--primary-cyan);
+            font-size: 1.4rem;
+            margin: 30px 0 20px;
         }
 
-        /* GLASSMORPHISM CARDS */
-        .experience-grid, .projects-grid, .certs-grid {
+        /* --- THE GLASS CARDS (SYNCED THEME) --- */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(10, 16, 31, 0.6); /* Darker, slightly transparent */
+            backdrop-filter: blur(12px);         /* The blur effect */
+            border: 1px solid rgba(0, 242, 255, 0.15); /* Thin cyan border */
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
             text-decoration: none;
-            color: inherit;
             display: block;
         }
 
-        /* Hover effect handled by Vanilla-Tilt, but we add a glow */
+        /* The Hover Glow Effect */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
+            transform: scaleX(0);
+            transition: 0.4s;
+        }
+
         .glass-card:hover {
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-            border-color: var(--accent-color);
+            transform: translateY(-10px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
         }
 
-        .experience-role, .project-content h4 {
-            color: var(--accent-color);
-            font-size: 1.3rem;
-            margin-bottom: 5px;
+        .glass-card:hover::before {
+            transform: scaleX(1);
         }
 
-        .experience-company {
-            font-weight: bold;
+        /* Card Content */
+        .card-title {
             color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-company {
+            color: var(--primary-cyan);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
-        .experience-date {
+        .card-date {
+            color: var(--text-muted);
             font-size: 0.9rem;
-            color: #888;
             margin-bottom: 15px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .experience-duties, .project-content p {
+        .card-desc {
             color: #ccc;
-            font-size: 0.95rem;
-            padding-left: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
-        .project-footer {
-            margin-top: 15px;
+        .tech-stack {
+            margin-top: 20px;
             display: flex;
-            gap: 10px;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .project-footer span {
+        .tech-badge {
             font-size: 0.8rem;
-            background: rgba(0, 242, 255, 0.1);
-            color: var(--accent-color);
-            padding: 5px 10px;
+            background: rgba(188, 19, 254, 0.1);
+            color: var(--primary-purple);
+            padding: 5px 12px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 242, 255, 0.3);
+            border: 1px solid rgba(188, 19, 254, 0.3);
         }
 
-        /* Cert Grid Layout */
+        /* --- CERTIFICATES ROW --- */
+        .cert-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
         .cert-item {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary-purple);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
             display: flex;
             align-items: center;
             gap: 15px;
             transition: 0.3s;
         }
-
-        .cert-item i {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-        }
-
-        /* BUTTONS */
-        .btn-resume {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-            color: #000;
-            font-weight: bold;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-        }
-
-        .btn-resume:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
-        }
-
-        /* CONTACT */
-        .contact-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+        
+        .cert-item:hover {
+            background: rgba(188, 19, 254, 0.1);
+            padding-left: 30px;
         }
         
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
-            background: var(--glass-bg);
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-        }
+        .cert-icon { color: var(--primary-cyan); font-size: 1.2rem; }
 
-        .contact-item a {
-            color: #fff;
+        /* --- BUTTONS --- */
+        .btn-glow {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-cyan);
+            border: 2px solid var(--primary-cyan);
+            padding: 15px 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
             text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 20px;
         }
 
-        .contact-item i {
-            color: var(--accent-color);
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--primary-cyan);
+            z-index: -1;
+            transition: 0.3s;
         }
 
-        /* Mobile Responsive */
+        .btn-glow:hover {
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-cyan);
+        }
+
+        .btn-glow:hover::before { width: 100%; }
+
+        /* --- CONTACT --- */
+        .contact-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0));
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.2rem; }
-            .contact-grid { flex-direction: column; align-items: center; gap: 20px; }
+            .hero-title { font-size: 3rem; }
+            .cyber-grid { background-size: 100% 100%, 20px 20px, 20px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="vanta-bg"></div>
+    <div class="cyber-grid"></div>
+    <div class="cyber-glow"></div>
 
     <div class="container">
-        <header id="home" data-aos="zoom-in" data-aos-duration="1500">
-            <div class="hero-content">
-                <h1 class="hero-title">Nithish Kumar M</h1>
-                <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
-                <p class="hero-description">Building intelligent systems and extracting insights from the noise. Winner of the Genesis AI Hackathon.</p>
-                <div class="hero-links">
-                    <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
-                <div style="margin-top: 50px; animation: bounce 2s infinite;">
-                    <i class="fas fa-chevron-down" style="color: var(--accent-color); font-size: 1.5rem;"></i>
-                </div>
+        
+        <header id="home" data-aos="zoom-out" data-aos-duration="1500">
+            <h1 class="hero-title">Nithish Kumar M</h1>
+            <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
+            <p class="hero-description">I build intelligent systems and extract actionable insights from the noise. Winner of the Genesis AI Hackathon.</p>
+            
+            <div class="hero-links">
+                <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+
+            <div style="margin-top: 60px; animation: bounce 2s infinite;">
+                <i class="fas fa-chevron-down" style="color: var(--primary-purple); font-size: 1.5rem;"></i>
             </div>
         </header>
 
         <section id="experience" data-aos="fade-up">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="experience-grid">
-                <div class="glass-card" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
-                    <div class="experience-header">
-                        <h3 class="experience-role">AI/ML Intern</h3>
-                        <span class="experience-company">Novitech R&D</span>
-                    </div>
-                    <p class="experience-date">May 2025 – Present</p>
-                    <ul class="experience-duties">
-                        <li>Developed and evaluated ML models for prediction tasks using scikit-learn and pandas.</li>
-                        <li>Implemented AI solutions using supervised and unsupervised learning techniques.</li>
-                    </ul>
+            <h2 class="section-title">Experience</h2>
+            <div class="grid-container">
+                <div class="glass-card" data-tilt>
+                    <h3 class="card-company">Novitech R&D</h3>
+                    <div class="card-title">AI/ML Intern</div>
+                    <p class="card-date">May 2025 – Present</p>
+                    <p class="card-desc">Developed and evaluated ML models for prediction tasks using scikit-learn. Implemented AI solutions using supervised learning.</p>
                 </div>
-                <div class="glass-card" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
-                    <div class="experience-header">
-                        <h3 class="experience-role">Data Analytics Intern</h3>
-                        <span class="experience-company">Brainwave Matrix Solution</span>
-                    </div>
-                    <p class="experience-date">June 2025 – July 2025</p>
-                    <ul class="experience-duties">
-                        <li>Analyzed datasets using Power BI to generate interactive business dashboards.</li>
-                        <li>Performed data cleaning and visualization, improving data accuracy by 25%.</li>
-                    </ul>
+                <div class="glass-card" data-tilt>
+                    <h3 class="card-company">Brainwave Matrix</h3>
+                    <div class="card-title">Data Analytics Intern</div>
+                    <p class="card-date">June 2025 – July 2025</p>
+                    <p class="card-desc">Analyzed datasets using Power BI to generate business dashboards. Improved data visualization accuracy by 25%.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects" data-aos="fade-up">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
+            <h2 class="section-title">Projects</h2>
+            <div class="grid-container">
                 
                 <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>Genesis AI Hackathon (1st Place) <i class="fas fa-trophy" style="color: gold;"></i></h4>
-                        <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span>Generative AI</span>
-                        <span>Python</span>
-                        <span>Scikit-learn</span>
+                    <div class="card-title">Genesis AI Hackathon <i class="fas fa-trophy" style="color: gold;"></i></div>
+                    <p class="card-desc">Winner (1st Place). Led prototype development of an AI-powered solution in 24 hours.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">GenAI</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Scikit-learn</span>
                     </div>
                 </a>
 
                 <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>Online Quiz Platform</h4>
-                        <p>A full-stack app using the Gemini API to auto-generate questions, reducing creation time by 25%.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span>Java</span>
-                        <span>Gemini API</span>
-                        <span>MySQL</span>
+                    <div class="card-title">AI Quiz Platform</div>
+                    <p class="card-desc">A full-stack app using the Gemini API to auto-generate questions from text inputs.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Java</span>
+                        <span class="tech-badge">Gemini API</span>
+                        <span class="tech-badge">MySQL</span>
                     </div>
                 </a>
 
                 <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>Annamalaiyar Ghee E-commerce</h4>
-                        <p>A full-featured e-commerce website for a local business selling ghee, snacks, and other products.</p>
+                    <div class="card-title">Annamalaiyar Ghee</div>
+                    <p class="card-desc">A deployed e-commerce website for a local business with cart and order management.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">PHP</span>
+                        <span class="tech-badge">MySQL</span>
+                        <span class="tech-badge">Ecommerce</span>
                     </div>
-                    <div class="project-footer">
-                        <span>PHP</span>
-                        <span>MySQL</span>
-                        <span>HTML/CSS</span>
+                </a>
+
+                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="glass-card" data-tilt>
+                    <div class="card-title">Sales Dashboard</div>
+                    <p class="card-desc">Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Power BI</span>
+                        <span class="tech-badge">DAX</span>
+                        <span class="tech-badge">Data Viz</span>
                     </div>
                 </a>
                 
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>Sales Performance Dashboard</h4>
-                        <p>Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span>Power BI</span>
-                        <span>Excel</span>
-                        <span>Python</span>
+                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="glass-card" data-tilt>
+                    <div class="card-title">Uzhavar Koodam</div>
+                    <p class="card-desc">An agricultural market platform that improved farmer's search efficiency by 30%.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">PHP</span>
+                        <span class="tech-badge">MySQL</span>
+                         <span class="tech-badge">JS</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>Uzhavar Koodam</h4>
-                        <p>An agricultural market platform that improved farmer's search efficiency by 30%.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span>PHP</span>
-                        <span>MySQL</span>
-                        <span>JavaScript</span>
+                 <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="glass-card" data-tilt>
+                    <div class="card-title">PARC-AI</div>
+                    <p class="card-desc">AI-driven web app that calculates parcel shipping costs based on dimensions.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">AI Model</span>
+                        <span class="tech-badge">JS</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="glass-card" data-tilt>
-                    <div class="project-content">
-                        <h4>PARC-AI</h4>
-                        <p>AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span>HTML/CSS</span>
-                        <span>JavaScript</span>
-                        <span>AI Model</span>
-                    </div>
-                </a>
             </div>
         </section>
 
         <section id="certs" data-aos="fade-up">
-            <h2 class="section-title">Certifications & Experience</h2>
+            <h2 class="section-title">Credentials</h2>
             
-            <h3 class="subsection-title">Job Simulations</h3>
-            <div class="certs-grid">
-                <div class="cert-item" data-tilt data-tilt-scale="1.05">
-                    <i class="fas fa-laptop-code"></i>
-                    <div>
-                        <strong>JPMorgan Chase & Co.</strong>
-                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Software Engineering (Jan 2026)</span>
+            <div class="grid-container">
+                <div>
+                    <h3 class="subsection-title">Job Simulations</h3>
+                    <div class="cert-row">
+                        <div class="cert-item">
+                            <i class="fas fa-laptop-code cert-icon"></i>
+                            <div><strong>JPMorgan Chase</strong> <br><small style="color:#888">Software Engineering (Jan 2026)</small></div>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-gamepad cert-icon"></i>
+                            <div><strong>Electronic Arts (EA)</strong> <br><small style="color:#888">Software Engineering (Jan 2026)</small></div>
+                        </div>
+                         <div class="cert-item">
+                            <i class="fas fa-plane cert-icon"></i>
+                            <div><strong>British Airways</strong> <br><small style="color:#888">Data Science (Jan 2026)</small></div>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-chart-pie cert-icon"></i>
+                            <div><strong>Deloitte</strong> <br><small style="color:#888">Data Analytics (Dec 2025)</small></div>
+                        </div>
                     </div>
                 </div>
-                <div class="cert-item" data-tilt data-tilt-scale="1.05">
-                    <i class="fas fa-gamepad"></i>
-                    <div>
-                        <strong>Electronic Arts (EA)</strong>
-                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Software Engineering (Jan 2026)</span>
-                    </div>
-                </div>
-                <div class="cert-item" data-tilt data-tilt-scale="1.05">
-                    <i class="fas fa-plane"></i>
-                    <div>
-                        <strong>British Airways</strong>
-                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Data Science (Jan 2026)</span>
-                    </div>
-                </div>
-                <div class="cert-item" data-tilt data-tilt-scale="1.05">
-                    <i class="fas fa-chart-pie"></i>
-                    <div>
-                        <strong>Deloitte</strong>
-                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Data Analytics (Dec 2025)</span>
-                    </div>
-                </div>
-            </div>
 
-            <h3 class="subsection-title" style="margin-top: 30px;">Professional Certificates</h3>
-            <div class="certs-grid">
-                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Master Power BI (Alison Academy)</div>
-                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Business Analytics (Simplilearn)</div>
-                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Frontend Development (Simplilearn)</div>
-                <div class="cert-item" data-tilt><i class="fas fa-award"></i> DBMS (CodeChef)</div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn-resume">
-                    <i class="fas fa-folder-open"></i> View All Credentials
-                </a>
+                <div>
+                    <h3 class="subsection-title">Certifications</h3>
+                    <div class="cert-row">
+                        <div class="cert-item">
+                            <i class="fas fa-certificate cert-icon"></i>
+                            <div>Master Power BI (Alison)</div>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-certificate cert-icon"></i>
+                            <div>Business Analytics (Simplilearn)</div>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-certificate cert-icon"></i>
+                            <div>Frontend Dev (Simplilearn)</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn-glow" style="width: 100%; text-align: center; font-size: 0.9rem;">
+                            View Proofs <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact" data-aos="fade-up">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:knithish367@gmail.com">knithish367@gmail.com</a> 
+        <section id="contact" data-aos="flip-up">
+            <div class="contact-box">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Hire?</h2>
+                <p style="color: #94a3b8; margin-bottom: 30px;">I am currently open for Internships & Full-time roles in AI and Data Analytics.</p>
+                
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="mailto:knithish367@gmail.com" class="btn-glow">Email Me</a>
+                    
+                    <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn-glow" style="border-color: var(--primary-purple); color: var(--primary-purple);" download="NITHISHKUMAR-RESUME.pdf">
+                        <i class="fas fa-download"></i> Resume
+                    </a>
                 </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>9344635773</span> 
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn-resume" download="NITHISHKUMAR-RESUME.pdf">
-                    <i class="fas fa-download"></i> Download Resume
-                </a>
             </div>
         </section>
 
-        <footer style="text-align: center; padding: 20px; color: #555; font-size: 0.8rem;">
-            <p>&copy; 2026 Nithish Kumar M. Built with AI & Passion.</p>
+        <footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem;">
+            <p>&copy; 2026 Nithish Kumar M. System Online.</p>
         </footer>
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
-    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <script>
-        // Initialize Scroll Animation
         AOS.init({
             duration: 1000,
-            once: true
+            once: true,
+            offset: 100
         });
-
-        // Initialize 3D Background (Vanta Net Effect)
-        VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x00f2ff,       // Cyan connection lines
-            backgroundColor: 0x0b0d17, // Matches our dark bg
-            points: 10.00,
-            maxDistance: 22.00,
-            spacing: 18.00
-        })
+        
+        // Tilt Effect for 3D Cards
+        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+            max: 10,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2
+        });
     </script>
 </body>
 </html>
