@@ -7,32 +7,290 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Lexend:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0b0d17;
+            --text-color: #e0e6ed;
+            --accent-color: #00f2ff; /* Cyberpunk Cyan */
+            --secondary-color: #7000ff; /* Neon Purple */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-hover: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* The 3D Background Container */
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HEADER */
+        header {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: #a0aab5;
+            margin-bottom: 20px;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .hero-links a {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px) scale(1.1);
+            text-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 20px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .subsection-title {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* GLASSMORPHISM CARDS */
+        .experience-grid, .projects-grid, .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Hover effect handled by Vanilla-Tilt, but we add a glow */
+        .glass-card:hover {
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .experience-role, .project-content h4 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .experience-company {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .experience-duties, .project-content p {
+            color: #ccc;
+            font-size: 0.95rem;
+            padding-left: 15px;
+        }
+
+        .project-footer {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-footer span {
+            font-size: 0.8rem;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+        }
+
+        /* Cert Grid Layout */
+        .cert-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+
+        .cert-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        /* BUTTONS */
+        .btn-resume {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            color: #000;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        .btn-resume:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            background: var(--glass-bg);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-item a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .contact-item i {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .contact-grid { flex-direction: column; align-items: center; gap: 20px; }
+        }
+    </style>
 </head>
 <body>
 
+    <div id="vanta-bg"></div>
+
     <div class="container">
-        <header id="home">
+        <header id="home" data-aos="zoom-in" data-aos-duration="1500">
             <div class="hero-content">
                 <h1 class="hero-title">Nithish Kumar M</h1>
                 <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
-                <p class="hero-description">I build intelligent systems and extract actionable insights from complex data. My expertise lies at the intersection of machine learning, data visualization, and full-stack development.</p>
+                <p class="hero-description">Building intelligent systems and extracting insights from the noise. Winner of the Genesis AI Hackathon.</p>
                 <div class="hero-links">
                     <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
                     <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
                 </div>
+                <div style="margin-top: 50px; animation: bounce 2s infinite;">
+                    <i class="fas fa-chevron-down" style="color: var(--accent-color); font-size: 1.5rem;"></i>
+                </div>
             </div>
         </header>
 
-        <section id="experience">
+        <section id="experience" data-aos="fade-up">
             <h2 class="section-title">Professional Experience</h2>
             <div class="experience-grid">
-                <div class="experience-card">
+                <div class="glass-card" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
                     <div class="experience-header">
                         <h3 class="experience-role">AI/ML Intern</h3>
                         <span class="experience-company">Novitech R&D</span>
@@ -43,7 +301,7 @@
                         <li>Implemented AI solutions using supervised and unsupervised learning techniques.</li>
                     </ul>
                 </div>
-                <div class="experience-card">
+                <div class="glass-card" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
                     <div class="experience-header">
                         <h3 class="experience-role">Data Analytics Intern</h3>
                         <span class="experience-company">Brainwave Matrix Solution</span>
@@ -57,14 +315,14 @@
             </div>
         </section>
 
-        <section id="projects">
+        <section id="projects" data-aos="fade-up">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
                 
-                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
-                        <h4>Genesis AI Hackathon (1st Place)</h4>
-                        <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams in a 24-hour hackathon.</p>
+                        <h4>Genesis AI Hackathon (1st Place) <i class="fas fa-trophy" style="color: gold;"></i></h4>
+                        <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams.</p>
                     </div>
                     <div class="project-footer">
                         <span>Generative AI</span>
@@ -73,7 +331,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
                         <h4>Online Quiz Platform</h4>
                         <p>A full-stack app using the Gemini API to auto-generate questions, reducing creation time by 25%.</p>
@@ -85,7 +343,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
                         <h4>Annamalaiyar Ghee E-commerce</h4>
                         <p>A full-featured e-commerce website for a local business selling ghee, snacks, and other products.</p>
@@ -97,10 +355,10 @@
                     </div>
                 </a>
                 
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
                         <h4>Sales Performance Dashboard</h4>
-                        <p>An interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
+                        <p>Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
                     </div>
                     <div class="project-footer">
                         <span>Power BI</span>
@@ -109,7 +367,7 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
                         <h4>Uzhavar Koodam</h4>
                         <p>An agricultural market platform that improved farmer's search efficiency by 30%.</p>
@@ -121,10 +379,10 @@
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="project-card">
+                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="glass-card" data-tilt>
                     <div class="project-content">
                         <h4>PARC-AI</h4>
-                        <p>An AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
+                        <p>AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
                     </div>
                     <div class="project-footer">
                         <span>HTML/CSS</span>
@@ -135,47 +393,47 @@
             </div>
         </section>
 
-        <section id="certs">
+        <section id="certs" data-aos="fade-up">
             <h2 class="section-title">Certifications & Experience</h2>
             
-            <h3 class="subsection-title" style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 20px;">Job Simulations</h3>
+            <h3 class="subsection-title">Job Simulations</h3>
             <div class="certs-grid">
-                <div class="cert-item">
+                <div class="cert-item" data-tilt data-tilt-scale="1.05">
                     <i class="fas fa-laptop-code"></i>
                     <div>
                         <strong>JPMorgan Chase & Co.</strong>
-                        <span style="display:block; font-size:0.9em; color:#666;">Software Engineering (Jan 2026)</span>
+                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Software Engineering (Jan 2026)</span>
                     </div>
                 </div>
-                <div class="cert-item">
+                <div class="cert-item" data-tilt data-tilt-scale="1.05">
                     <i class="fas fa-gamepad"></i>
                     <div>
                         <strong>Electronic Arts (EA)</strong>
-                        <span style="display:block; font-size:0.9em; color:#666;">Software Engineering (Jan 2026)</span>
+                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Software Engineering (Jan 2026)</span>
                     </div>
                 </div>
-                <div class="cert-item">
+                <div class="cert-item" data-tilt data-tilt-scale="1.05">
                     <i class="fas fa-plane"></i>
                     <div>
                         <strong>British Airways</strong>
-                        <span style="display:block; font-size:0.9em; color:#666;">Data Science (Jan 2026)</span>
+                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Data Science (Jan 2026)</span>
                     </div>
                 </div>
-                <div class="cert-item">
+                <div class="cert-item" data-tilt data-tilt-scale="1.05">
                     <i class="fas fa-chart-pie"></i>
                     <div>
                         <strong>Deloitte</strong>
-                        <span style="display:block; font-size:0.9em; color:#666;">Data Analytics (Dec 2025)</span>
+                        <span style="display:block; font-size:0.9em; color:#a0aab5;">Data Analytics (Dec 2025)</span>
                     </div>
                 </div>
             </div>
 
-            <h3 class="subsection-title" style="color: var(--primary-color); font-size: 1.2rem; margin: 30px 0 20px;">Professional Certificates</h3>
+            <h3 class="subsection-title" style="margin-top: 30px;">Professional Certificates</h3>
             <div class="certs-grid">
-                <div class="cert-item"><i class="fas fa-award"></i> Master Power BI (Alison Academy)</div>
-                <div class="cert-item"><i class="fas fa-award"></i> Business Analytics with Data Science (Simplilearn)</div>
-                <div class="cert-item"><i class="fas fa-award"></i> Frontend Development (Simplilearn)</div>
-                <div class="cert-item"><i class="fas fa-award"></i> Database Management Systems (CodeChef)</div>
+                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Master Power BI (Alison Academy)</div>
+                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Business Analytics (Simplilearn)</div>
+                <div class="cert-item" data-tilt><i class="fas fa-award"></i> Frontend Development (Simplilearn)</div>
+                <div class="cert-item" data-tilt><i class="fas fa-award"></i> DBMS (CodeChef)</div>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
@@ -185,7 +443,7 @@
             </div>
         </section>
 
-        <section id="contact">
+        <section id="contact" data-aos="fade-up">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-grid">
                 <div class="contact-item">
@@ -198,11 +456,50 @@
                 </div>
             </div>
             
-            <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn-resume" download="NITHISHKUMAR-RESUME.pdf">
-                <i class="fas fa-download"></i> Download Resume
-            </a>
+            <div style="text-align: center;">
+                <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn-resume" download="NITHISHKUMAR-RESUME.pdf">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
         </section>
 
+        <footer style="text-align: center; padding: 20px; color: #555; font-size: 0.8rem;">
+            <p>&copy; 2026 Nithish Kumar M. Built with AI & Passion.</p>
+        </footer>
+
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script>
+        // Initialize Scroll Animation
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize 3D Background (Vanta Net Effect)
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x00f2ff,       // Cyan connection lines
+            backgroundColor: 0x0b0d17, // Matches our dark bg
+            points: 10.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        })
+    </script>
 </body>
 </html>
