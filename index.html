@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,48 +15,37 @@
 
     <style>
         :root {
-            --bg-color: #050505;
-            --card-bg: rgba(20, 20, 30, 0.7);
-            --primary: #00f2ff; /* Cyan */
-            --secondary: #bd00ff; /* Purple */
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
+            --bg-color: #0b0d17;
+            --primary-cyan: #00f2ff;
+            --primary-purple: #bd00ff;
+            --text-color: #e0e6ed;
+            --glass-bg: rgba(11, 13, 23, 0.85);
+            --glass-border: rgba(0, 242, 255, 0.2);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Lexend', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
+            color: var(--text-color);
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* --- 1. CLEAN ANIMATED BACKGROUND --- */
-        #particles-js {
+        /* 3D Background Canvas */
+        #vanta-bg {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1; /* Keeps it behind everything */
-            background: linear-gradient(to bottom, #020205, #0a0a15);
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px; /* Slightly narrower for better reading */
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 10;
         }
 
-        /* --- 2. HERO SECTION --- */
+        /* --- HEADER --- */
         header {
             height: 90vh;
             display: flex;
@@ -70,209 +59,161 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 4rem;
             font-weight: 700;
-            line-height: 1.1;
-            background: linear-gradient(90deg, #fff, var(--primary));
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--primary-cyan), var(--primary-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-            text-transform: uppercase;
         }
 
         .hero-subtitle {
             font-size: 1.5rem;
-            color: var(--secondary);
+            color: #ccc;
             margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-weight: 700;
         }
 
         .hero-description {
             max-width: 600px;
             font-size: 1.1rem;
-            color: var(--text-muted);
+            color: #a0aab5;
             margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
         }
 
         .social-links a {
-            color: var(--text-main);
-            font-size: 1.8rem;
+            font-size: 2rem;
+            color: #fff;
+            margin: 0 15px;
             transition: 0.3s;
         }
+        .social-links a:hover { color: var(--primary-cyan); transform: scale(1.1); }
 
-        .social-links a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-            text-shadow: 0 0 15px var(--primary);
-        }
-
-        /* --- 3. SECTIONS & TITLES --- */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-header {
-            margin-bottom: 50px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        /* --- SECTIONS --- */
+        section { padding: 60px 0; }
 
         .section-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
+            text-transform: uppercase;
             color: #fff;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary-cyan);
+            padding-left: 15px;
+            display: inline-block;
         }
 
-        .line {
-            height: 2px;
-            background: var(--primary);
-            flex-grow: 1;
-            max-width: 200px;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* --- 4. GLASS CARDS (High Readability) --- */
+        /* --- CARDS --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(10px); /* Frosted glass */
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: 0.3s;
             text-decoration: none;
             display: block;
         }
 
-        /* Hover Glow */
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+            transform: translateY(-5px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
         }
 
-        .card h3 {
-            color: #fff;
-            font-size: 1.4rem;
+        .card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--primary-cyan);
+            font-size: 1.3rem;
             margin-bottom: 10px;
         }
 
-        .card h3 i {
-            color: gold;
-            margin-left: 5px;
-        }
-
-        .card-meta {
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: block;
-        }
-
         .card p {
-            color: var(--text-muted);
+            color: #ccc;
             font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            padding: 5px 12px;
+        .tags span {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            margin-right: 5px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--primary);
-            border: 1px solid rgba(0, 242, 255, 0.2);
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: var(--primary-cyan);
         }
 
-        /* --- 5. CREDENTIALS LIST --- */
-        .creds-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* --- CREDENTIALS (VERTICAL STACK) --- */
+        .creds-block {
+            margin-bottom: 40px; /* Space between Job Sims and Certs */
         }
 
-        .cred-item {
+        .subsection-title {
+            color: var(--primary-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-purple);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Grid for the list items inside the sections */
+        .creds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px;
+        }
+
+        .list-item {
             display: flex;
             align-items: center;
-            gap: 15px;
             background: rgba(255,255,255,0.03);
             padding: 15px;
-            border-radius: 10px;
-            border-left: 3px solid var(--secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-purple);
             transition: 0.3s;
         }
 
-        .cred-item:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateX(10px);
-        }
+        .list-item:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
 
-        .cred-icon {
+        .list-item i {
             font-size: 1.2rem;
-            color: var(--secondary);
-            width: 30px;
+            color: var(--primary-cyan);
+            margin-right: 15px;
+            min-width: 25px;
             text-align: center;
         }
 
-        /* --- 6. BUTTONS --- */
+        .list-text strong { display: block; color: #fff; font-size: 1rem; }
+        .list-text span { font-size: 0.85rem; color: #888; }
+
+        /* BUTTONS */
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
+            padding: 15px 30px;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
             text-decoration: none;
             transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
+        .btn:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 0 20px var(--primary-cyan); }
 
-        .btn-primary {
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 25px rgba(0, 242, 255, 0.5);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: #000;
-        }
-
-        /* Mobile Fixes */
+        /* CONTACT */
+        #contact { text-align: center; margin-bottom: 50px; }
+        
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .grid { grid-template-columns: 1fr; }
@@ -281,227 +222,190 @@
 </head>
 <body>
 
-    <div id="particles-js"></div>
+    <div id="vanta-bg"></div>
 
     <div class="container">
         
-        <header data-aos="zoom-in" data-aos-duration="1200">
+        <header data-aos="zoom-in">
             <h1 class="hero-title">Nithish Kumar M</h1>
             <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
-            <p class="hero-description">
-                Building intelligent systems and extracting insights from the noise. <br>
-                Winner of the Genesis AI Hackathon.
-            </p>
+            <p class="hero-description">Building intelligent systems and extracting insights from the noise. Winner of the Genesis AI Hackathon.</p>
             <div class="social-links">
                 <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
                 <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
             </div>
-            
-            <div style="margin-top: 60px; animation: bounce 2s infinite;">
-                <i class="fas fa-chevron-down" style="color: var(--primary);"></i>
-            </div>
         </header>
 
         <section id="experience" data-aos="fade-up">
-            <div class="section-header">
-                <h2 class="section-title">Experience</h2>
-                <div class="line"></div>
-            </div>
+            <h2 class="section-title">Experience</h2>
             <div class="grid">
-                <div class="card" data-tilt>
-                    <span class="card-meta">May 2025 – Present</span>
-                    <h3>Novitech R&D</h3>
-                    <p style="color: #fff; font-weight: bold;">AI/ML Intern</p>
-                    <p>Developing predictive models using scikit-learn and deploying AI solutions for real-world scenarios.</p>
+                <div class="card">
+                    <h4>AI/ML Intern</h4>
+                    <p><strong>Novitech R&D</strong> | May 2025 – Present</p>
+                    <p>Building predictive models using Scikit-learn and deploying Python solutions for real-world scenarios.</p>
                 </div>
-                <div class="card" data-tilt>
-                    <span class="card-meta">June 2025 – July 2025</span>
-                    <h3>Brainwave Matrix</h3>
-                    <p style="color: #fff; font-weight: bold;">Data Analytics Intern</p>
-                    <p>Built Power BI dashboards to visualize KPIs, improving data reporting accuracy by 25%.</p>
+                <div class="card">
+                    <h4>Data Analytics Intern</h4>
+                    <p><strong>Brainwave Matrix</strong> | June 2025 – July 2025</p>
+                    <p>Designed Power BI dashboards that improved reporting efficiency by 25% through advanced data visualization.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects" data-aos="fade-up">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="line"></div>
-            </div>
-            
+            <h2 class="section-title">Featured Projects</h2>
             <div class="grid">
                 
-                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card" data-tilt>
-                    <h3>Genesis AI Hackathon <i class="fas fa-trophy"></i></h3>
-                    <p>1st Place Winner. Built a rapid GenAI prototype in 24 hours to solve complex automation tasks.</p>
+                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card">
+                    <h4>Genesis AI Hackathon (1st Place) <i class="fas fa-trophy" style="color: gold;"></i></h4>
+                    <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams.</p>
                     <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">GenAI</span>
-                        <span class="tag">Scikit-learn</span>
+                        <span>Generative AI</span><span>Python</span><span>Scikit-learn</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card" data-tilt>
-                    <h3>Online Quiz Platform</h3>
-                    <p>Integrated Google Gemini API to auto-generate quiz questions from raw text input.</p>
+                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card">
+                    <h4>Online Quiz Platform</h4>
+                    <p>A full-stack app using the Gemini API to auto-generate questions, reducing creation time by 25%.</p>
                     <div class="tags">
-                        <span class="tag">Java</span>
-                        <span class="tag">Gemini API</span>
-                        <span class="tag">MySQL</span>
+                        <span>Java</span><span>Gemini API</span><span>MySQL</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card" data-tilt>
-                    <h3>Annamalaiyar Ghee</h3>
-                    <p>Full e-commerce site for a local business handling orders, cart, and product listings.</p>
+                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card">
+                    <h4>Annamalaiyar Ghee E-commerce</h4>
+                    <p>A full-featured e-commerce website for a local business selling ghee, snacks, and other products.</p>
                     <div class="tags">
-                        <span class="tag">PHP</span>
-                        <span class="tag">MySQL</span>
-                        <span class="tag">Web Dev</span>
+                        <span>PHP</span><span>MySQL</span><span>HTML/CSS</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card" data-tilt>
-                    <h3>Sales Dashboard</h3>
-                    <p>Power BI dashboard analyzing sales trends, cutting manual reporting time by 40%.</p>
+                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card">
+                    <h4>Sales Performance Dashboard</h4>
+                    <p>Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
                     <div class="tags">
-                        <span class="tag">Power BI</span>
-                        <span class="tag">Data Viz</span>
+                        <span>Power BI</span><span>Excel</span><span>Python</span>
                     </div>
                 </a>
 
-                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card" data-tilt>
-                    <h3>Uzhavar Koodam</h3>
-                    <p>Agricultural market platform connecting farmers to buyers, improving search efficiency.</p>
+                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card">
+                    <h4>Uzhavar Koodam</h4>
+                    <p>An agricultural market platform that improved farmer's search efficiency by 30%.</p>
                     <div class="tags">
-                        <span class="tag">PHP</span>
-                        <span class="tag">JS</span>
-                        <span class="tag">MySQL</span>
+                        <span>PHP</span><span>MySQL</span><span>JavaScript</span>
                     </div>
                 </a>
 
-                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card" data-tilt>
-                    <h3>PARC-AI</h3>
-                    <p>Smart shipping calculator that estimates costs based on box dimensions and weight.</p>
+                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card">
+                    <h4>PARC-AI</h4>
+                    <p>AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
                     <div class="tags">
-                        <span class="tag">AI Logic</span>
-                        <span class="tag">JS</span>
+                        <span>HTML/CSS</span><span>JavaScript</span><span>AI Model</span>
                     </div>
+                </a>
+
+            </div>
+        </section>
+
+        <section id="credentials" data-aos="fade-up">
+            <h2 class="section-title">Credentials</h2>
+            
+            <div class="creds-block">
+                <h3 class="subsection-title">Job Simulations</h3>
+                <div class="creds-grid">
+                    <div class="list-item">
+                        <i class="fas fa-laptop-code"></i>
+                        <div class="list-text">
+                            <strong>JPMorgan Chase & Co.</strong>
+                            <span>Software Engineering (Jan 2026)</span>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-gamepad"></i>
+                        <div class="list-text">
+                            <strong>Electronic Arts (EA)</strong>
+                            <span>Software Engineering (Jan 2026)</span>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-plane"></i>
+                        <div class="list-text">
+                            <strong>British Airways</strong>
+                            <span>Data Science (Jan 2026)</span>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-chart-pie"></i>
+                        <div class="list-text">
+                            <strong>Deloitte</strong>
+                            <span>Data Analytics (Dec 2025)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="creds-block">
+                <h3 class="subsection-title">Certifications</h3>
+                <div class="creds-grid">
+                    <div class="list-item">
+                        <i class="fas fa-certificate"></i>
+                        <div class="list-text"><strong>Master Power BI</strong> <span>(Alison Academy)</span></div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-certificate"></i>
+                        <div class="list-text"><strong>Business Analytics</strong> <span>(Simplilearn)</span></div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-certificate"></i>
+                        <div class="list-text"><strong>Frontend Development</strong> <span>(Simplilearn)</span></div>
+                    </div>
+                     <div class="list-item">
+                        <i class="fas fa-certificate"></i>
+                        <div class="list-text"><strong>Database Management System</strong> <span>(CodeChef)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn">
+                    View All Proofs <i class="fas fa-external-link-alt"></i>
                 </a>
             </div>
         </section>
 
-        <section id="certs" data-aos="fade-up">
-            <div class="section-header">
-                <h2 class="section-title">Credentials</h2>
-                <div class="line"></div>
+        <section id="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <div style="margin-bottom: 20px;">
+                <a href="mailto:knithish367@gmail.com" class="btn">Email Me</a>
+                <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn" download="NITHISHKUMAR-RESUME.pdf">Download Resume</a>
             </div>
-
-            <div class="grid">
-                <div>
-                    <h3 style="color: var(--primary); margin-bottom: 20px;">Job Simulations</h3>
-                    <div class="creds-list">
-                        <div class="cred-item">
-                            <i class="fas fa-laptop-code cred-icon"></i>
-                            <div><strong>JPMorgan Chase</strong> <br> Software Engineering </div>
-                        </div>
-                        <div class="cred-item">
-                            <i class="fas fa-gamepad cred-icon"></i>
-                            <div><strong>Electronic Arts (EA)</strong> <br> Software Engineering </div>
-                        </div>
-                        <div class="cred-item">
-                            <i class="fas fa-plane cred-icon"></i>
-                            <div><strong>British Airways</strong> <br> Data Science </div>
-                        </div>
-                        <div class="cred-item">
-                            <i class="fas fa-chart-pie cred-icon"></i>
-                            <div><strong>Deloitte</strong> <br> Data Analytics </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 style="color: var(--secondary); margin-bottom: 20px;">Certifications</h3>
-                    <div class="creds-list">
-                        <div class="cred-item">
-                            <i class="fas fa-certificate cred-icon"></i>
-                            <div>Master Power BI (Alison)</div>
-                        </div>
-                        <div class="cred-item">
-                            <i class="fas fa-certificate cred-icon"></i>
-                            <div>Business Analytics (Simplilearn)</div>
-                        </div>
-                        <div class="cred-item">
-                            <i class="fas fa-certificate cred-icon"></i>
-                            <div>Frontend Dev (Simplilearn)</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 30px; text-align: center;">
-                        <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn btn-outline" style="width: 100%;">
-                            <i class="fas fa-folder-open"></i> View All Proofs
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 Nithish Kumar M</p>
         </section>
-
-        <section id="contact" style="text-align: center;" data-aos="zoom-in">
-            <div style="background: rgba(255,255,255,0.05); padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
-                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Ready to work together?</h2>
-                <p style="color: #ccc; margin-bottom: 30px;">Open for Internships & Full-time roles.</p>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <a href="mailto:knithish367@gmail.com" class="btn btn-primary">Email Me</a>
-                    <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn btn-outline" download="NITHISHKUMAR-RESUME.pdf">Download Resume</a>
-                </div>
-            </div>
-        </section>
-
-        <footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem;">
-            <p>&copy; 2026 Nithish Kumar M. Designed with Code.</p>
-        </footer>
-
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
         AOS.init();
-        
-        // Setup Particles.js for a clean starry background
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#ffffff" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#00f2ff", /* Cyan Lines */
-                    "opacity": 0.2,     /* Low opacity so it doesn't block text */
-                    "width": 1
-                },
-                "move": { "enable": true, "speed": 2 }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "grab" },
-                    "onclick": { "enable": true, "mode": "push" }
-                }
-            }
-        });
 
-        // 3D Tilt Effect
-        VanillaTilt.init(document.querySelectorAll(".card"), {
-            max: 10,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.2
-        });
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x00f2ff,        
+            backgroundColor: 0x0b0d17,
+            points: 12.00,
+            maxDistance: 23.00,
+            spacing: 18.00
+        })
     </script>
 </body>
 </html>
