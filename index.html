@@ -1,426 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nithish Kumar M | Data & AI Portfolio</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary-cyan: #00f2ff;
-            --primary-purple: #bd00ff;
-            --text-color: #e0e6ed;
-            --glass-bg: rgba(15, 23, 42, 0.6); 
-            --glass-border: rgba(0, 242, 255, 0.3);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Lexend', sans-serif;
-            color: var(--text-color);
-            overflow-x: hidden;
-            position: relative;
-            
-            /* BACKGROUND IMAGE SETTINGS */
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Keeps image fixed while scrolling */
-        }
-
-        /* 3D Network Canvas (Now Transparent) */
-        #vanta-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* --- HEADER --- */
-        header {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #fff, var(--primary-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
-        }
-
-        .hero-subtitle {
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        .hero-description {
-            max-width: 600px;
-            font-size: 1.1rem;
-            color: #d1d5db;
-            margin-bottom: 30px;
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .social-links a {
-            font-size: 2rem;
-            color: #fff;
-            margin: 0 15px;
-            transition: 0.3s;
-        }
-        .social-links a:hover { color: var(--primary-cyan); transform: scale(1.1); text-shadow: 0 0 15px var(--primary-cyan); }
-
-        /* --- SECTIONS --- */
-        section { padding: 80px 0; }
-
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            color: #fff;
-            margin-bottom: 40px;
-            border-left: 5px solid var(--primary-cyan);
-            padding-left: 15px;
-            display: inline-block;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
-        }
-
-        /* --- 3D CARDS --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 25px;
-            text-decoration: none;
-            display: block;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--primary-cyan);
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            transform: translateZ(20px);
-        }
-        .card p {
-            color: #e2e8f0;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            transform: translateZ(20px);
-        }
-        .tags { transform: translateZ(30px); }
-        
-        .tags span {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            margin-right: 5px;
-            border-radius: 20px;
-            background: rgba(0, 242, 255, 0.15);
-            border: 1px solid rgba(0, 242, 255, 0.4);
-            color: var(--primary-cyan);
-        }
-
-        /* --- CREDENTIALS --- */
-        .creds-block { margin-bottom: 50px; }
-
-        .subsection-title {
-            color: var(--primary-cyan);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--primary-purple);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .list-item {
-            display: flex;
-            align-items: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
-        }
-        
-        .list-item:hover {
-            border-color: var(--primary-cyan);
-            background: rgba(0, 242, 255, 0.1);
-            transform: translateX(10px);
-        }
-
-        .list-item i {
-            font-size: 1.5rem;
-            color: var(--primary-purple);
-            margin-right: 20px;
-        }
-
-        .list-text strong { display: block; color: #fff; font-size: 1.1rem; }
-        .list-text span { font-size: 0.9rem; color: #cbd5e1; }
-
-        /* BUTTONS */
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: rgba(0, 242, 255, 0.1);
-            border: 1px solid var(--primary-cyan);
-            color: var(--primary-cyan);
-            font-family: 'Space Grotesk', sans-serif;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: 0.3s;
-            margin-top: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
-        .btn:hover { background: var(--primary-cyan); color: #000; box-shadow: 0 0 20px var(--primary-cyan); }
-
-        #contact { text-align: center; margin-bottom: 50px; }
-        
-        @media (max-width: 768px) {
-            .hero-title { font-size: 3rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nithish Kumar M | Application Developer & AI Engineer</title>
+<meta name="description" content="Application developer building enterprise apps and applied AI systems. Winner, Genesis AI Hackathon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="vanta-bg"></div>
-
-    <div class="container">
-        <header data-aos="zoom-in">
-            <h1 class="hero-title">Nithish Kumar M</h1>
-            <h2 class="hero-subtitle">Data Analyst & AI Developer</h2>
-            <p class="hero-description">Building intelligent systems and extracting insights from the noise. Winner of the Genesis AI Hackathon.</p>
-            <div class="social-links">
-                <a href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/Nithishkumar93" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-        </header>
-
-        <section id="experience" data-aos="fade-up">
-            <h2 class="section-title">Experience</h2>
-            <div class="grid">
-                <div class="card" data-tilt>
-                    <h4>AI/ML Intern</h4>
-                    <p><strong>Novitech R&D</strong> | May 2025 – Present</p>
-                    <p>Building predictive models using Scikit-learn and deploying Python solutions for real-world scenarios.</p>
-                </div>
-                <div class="card" data-tilt>
-                    <h4>Data Analytics Intern</h4>
-                    <p><strong>Brainwave Matrix</strong> | June 2025 – July 2025</p>
-                    <p>Designed Power BI dashboards that improved reporting efficiency by 25% through advanced data visualization.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" data-aos="fade-up">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="grid">
-                
-                <a href="https://github.com/Nithishkumar93/Genesis-AI-Hackathon" target="_blank" class="card" data-tilt>
-                    <h4>Genesis AI Hackathon (1st Place) <i class="fas fa-trophy" style="color: gold;"></i></h4>
-                    <p>Led prototype development of the winning AI-powered solution, securing 1st place out of 75+ teams.</p>
-                    <div class="tags">
-                        <span>Generative AI</span><span>Python</span><span>Scikit-learn</span>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nithishkumar93/Learn-ED" target="_blank" class="card" data-tilt>
-                    <h4>Online Quiz Platform</h4>
-                    <p>A full-stack app using the Gemini API to auto-generate questions, reducing creation time by 25%.</p>
-                    <div class="tags">
-                        <span>Java</span><span>Gemini API</span><span>MySQL</span>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nithishkumar93/annamalaiyar-ghee-ecommerce" target="_blank" class="card" data-tilt>
-                    <h4>Annamalaiyar Ghee E-commerce</h4>
-                    <p>A full-featured e-commerce website for a local business selling ghee, snacks, and other products.</p>
-                    <div class="tags">
-                        <span>PHP</span><span>MySQL</span><span>HTML/CSS</span>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nithishkumar93/Sales-Dashboard" target="_blank" class="card" data-tilt>
-                    <h4>Sales Performance Dashboard</h4>
-                    <p>Interactive Power BI dashboard that cut manual reporting efforts by 40%.</p>
-                    <div class="tags">
-                        <span>Power BI</span><span>Excel</span><span>Python</span>
-                    </div>
-                </a>
-                
-                 <a href="https://github.com/Nithishkumar93/Ulzhavar-Koodam" target="_blank" class="card" data-tilt>
-                    <h4>Uzhavar Koodam</h4>
-                    <p>An agricultural market platform that improved farmer's search efficiency by 30%.</p>
-                    <div class="tags">
-                        <span>PHP</span><span>MySQL</span><span>JavaScript</span>
-                    </div>
-                </a>
-
-                <a href="https://github.com/Nithishkumar93/PARC-AI" target="_blank" class="card" data-tilt>
-                    <h4>PARC-AI</h4>
-                    <p>AI-driven web app that instantly calculates parcel shipping costs based on package dimensions.</p>
-                    <div class="tags">
-                        <span>HTML/CSS</span><span>JavaScript</span><span>AI Model</span>
-                    </div>
-                </a>
-
-            </div>
-        </section>
-
-        <section id="credentials" data-aos="fade-up">
-            <h2 class="section-title">Credentials</h2>
-            
-            <div class="creds-block">
-                <h3 class="subsection-title">Job Simulations</h3>
-                <div class="grid">
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-laptop-code"></i>
-                        <div class="list-text">
-                            <strong>JPMorgan Chase & Co.</strong>
-                            <span>Software Engineering (Jan 2026)</span>
-                        </div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-gamepad"></i>
-                        <div class="list-text">
-                            <strong>Electronic Arts (EA)</strong>
-                            <span>Software Engineering (Jan 2026)</span>
-                        </div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-plane"></i>
-                        <div class="list-text">
-                            <strong>British Airways</strong>
-                            <span>Data Science (Jan 2026)</span>
-                        </div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-chart-pie"></i>
-                        <div class="list-text">
-                            <strong>Deloitte</strong>
-                            <span>Data Analytics (Dec 2025)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="creds-block">
-                <h3 class="subsection-title">Certifications</h3>
-                <div class="grid">
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-certificate"></i>
-                        <div class="list-text"><strong>Master Power BI</strong> <span>(Alison Academy)</span></div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-certificate"></i>
-                        <div class="list-text"><strong>Business Analytics</strong> <span>(Simplilearn)</span></div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-certificate"></i>
-                        <div class="list-text"><strong>Frontend Development</strong> <span>(Simplilearn)</span></div>
-                    </div>
-                    <div class="list-item" data-tilt data-tilt-scale="1.02">
-                        <i class="fas fa-certificate"></i>
-                        <div class="list-text"><strong>DBMS</strong> <span>(CodeChef)</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align:center;">
-                <a href="https://drive.google.com/drive/folders/1_Wu75TiNejHsmAF_JKEDCBwh1GmYQdYe?usp=drive_link" target="_blank" class="btn">
-                    View All Proofs <i class="fas fa-external-link-alt"></i>
-                </a>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <div style="margin-bottom: 20px;">
-                <a href="mailto:knithish367@gmail.com" class="btn">Email Me</a>
-                <a href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" class="btn" download="NITHISHKUMAR-RESUME.pdf">Download Resume</a>
-            </div>
-            <p style="color: #cbd5e1; font-size: 0.9rem;">&copy; 2026 Nithish Kumar M</p>
-        </section>
+<div id="bar"></div>
+<canvas id="stage"></canvas>
+<div id="glow"></div>
+<nav>
+  <b>NK</b>
+  <a class="l" href="#work">Work</a><a class="l" href="#projects">Projects</a><a class="l" href="#stack">Stack</a>
+  <a class="btn mag" href="#contact">Contact</a>
+</nav>
+<main>
+  <header class="hero">
+    <span class="pill"><i></i>Open to opportunities</span>
+    <h1 data-split>Nithish Kumar M</h1>
+    <p class="lead rv">Application developer building enterprise systems and applied AI. Oracle APEX, Java, Python, RAG.</p>
+    <div class="row rv" style="--d:2">
+      <a class="btn mag" href="#projects">View projects</a>
+      <a class="btn o mag" href="https://drive.google.com/uc?export=download&id=18bR3fIDcUOkxKQHhmyx9fhNZstLSxCb0" download="NITHISHKUMAR-RESUME.pdf"><i class="fas fa-download"></i>Resume</a>
+      <a href="https://github.com/Nithishkumar93" target="_blank" rel="noopener" aria-label="GitHub" class="btn o mag"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/nithish-kumar-mohan-204556368" target="_blank" rel="noopener" aria-label="LinkedIn" class="btn o mag"><i class="fab fa-linkedin"></i></a>
     </div>
+  </header>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <section class="sec" style="padding-top:20px">
+    <div class="stats rv" id="stats"></div>
+  </section>
 
-    <script>
-        AOS.init({ duration: 1000, once: true });
+  <section class="sec" id="work">
+    <h2 data-split>Experience</h2>
+    <p class="sub rv">Shipping software for factory floors and ML teams.</p>
+    <div class="tl" id="exp"></div>
+  </section>
 
-        // Vanta 3D Effect with Transparency for Background Image
-        try {
-            VANTA.NET({
-                el: "#vanta-bg",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                color: 0x00f2ff,       
-                backgroundColor: 0x000000, // Color must be set
-                backgroundAlpha: 0.0,      // THIS IS KEY: Makes Vanta Transparent
-                points: 10.00,
-                maxDistance: 22.00,
-                spacing: 18.00
-            });
-        } catch (e) { console.log(e); }
+  <section class="sec" id="projects">
+    <h2 data-split>Selected projects</h2>
+    <p class="sub rv">Real-time systems, computer vision and generative AI.</p>
+    <div class="bento" id="proj"></div>
+  </section>
 
-        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-            max: 15, speed: 400, glare: true, "max-glare": 0.3
-        });
-    </script>
+  <section class="sec" id="stack">
+    <h2 data-split>Stack</h2>
+    <div class="mq rv" style="margin-top:2rem"><div id="mq"></div></div>
+  </section>
+
+  <section class="sec">
+    <h2 data-split>Achievements</h2>
+    <p class="sub rv">Hackathon win, certifications and job simulations.</p>
+    <div class="creds" id="creds"></div>
+  </section>
+
+  <section class="sec" id="contact">
+    <h2 data-split>Let's build something.</h2>
+    <p class="sub rv" style="margin-inline:auto">Hiring or collaborating? Email is fastest.</p>
+    <div class="row rv"><a class="btn mag" href="mailto:knithish367@gmail.com"><i class="fas fa-envelope"></i>knithish367@gmail.com</a></div>
+  </section>
+  <footer>&copy; 2026 Nithish Kumar M</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
